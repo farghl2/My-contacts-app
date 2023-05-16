@@ -28,8 +28,8 @@ class SocialMediaIcon extends StatelessWidget {
                   backgroundImage: AssetImage('assets/$socialMediaImg'),
                 
                 ),
-                onTap:() {
-                  launchUrl(Uri.parse(socialMediaUrl), mode: LaunchMode.externalApplication);
+                onTap:() async {
+                  await launchUrl(Uri.parse(socialMediaUrl), mode: LaunchMode.externalApplication);
 
                 }
 
