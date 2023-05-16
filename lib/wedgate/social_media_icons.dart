@@ -31,15 +31,27 @@ class SocialMediaIcon extends StatelessWidget {
                 
                 ),
                 onTap:() {
-                  Navigator.push(
-                    context,MaterialPageRoute(
-                      builder: (context){
-                       return SocialStart(socialMediaUrl: socialMediaUrl);
-                       },
-                       
-                      ),
+                  // Navigator.push(
+                  //   context,MaterialPageRoute(
+                  //     builder: (context){
+                  //      return SocialStart(socialMediaUrl: socialMediaUrl);
+                  //      },
+
+                  //     ),
                 
-                  );
+                  // );
+
+                  showModalBottomSheet(context: context, 
+                  builder: 
+                  (context){
+                    return ElevatedButton(
+                      style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.deepOrange)),
+                      onPressed: (){
+                        launchUrl(Uri.parse(socialMediaUrl), mode: LaunchMode.externalApplication);
+
+                    }, 
+                    child:Text('start $socialMediaImg '));
+                  });
                   
                   
 
