@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../start.dart';
+
 
 
 
@@ -28,8 +30,18 @@ class SocialMediaIcon extends StatelessWidget {
                   backgroundImage: AssetImage('assets/$socialMediaImg'),
                 
                 ),
-                onTap:() async {
-                  await launchUrl(Uri.parse(socialMediaUrl), mode: LaunchMode.externalApplication);
+                onTap:() {
+                  Navigator.push(
+                    context,MaterialPageRoute(
+                      builder: (context){
+                       return SocialStart(socialMediaUrl: socialMediaUrl);
+                       },
+                       
+                      ),
+                
+                  );
+                  
+                  
 
                 }
 
