@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:my_contacts/wedgate/social_media_icons.dart';
+import 'package:my_contacts/wedgate/social_grid.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 
@@ -82,19 +82,7 @@ class MyContact extends StatelessWidget {
                     height: 20,
                   ),
           
-                  GridView.builder(
-                    itemCount: socialMedia.length,
-                    gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3)
-                     , itemBuilder: (context, index) {
-              
-                        return  SocialMediaIcon(socialMediaImg: socialMedia.keys.toList()[index], socialMediaUrl:socialMedia.values.toList()[index] ,);
-                     },
-                     shrinkWrap: true,
-                     physics: const NeverScrollableScrollPhysics(),
-                     padding: const EdgeInsets.all(20),
-                     
-                     )
+                  SocialGrid(socialMedia: socialMedia)
                 //  const SocialMediaIcon(socialMedia: 'facebook.png'),
                 
             ],
