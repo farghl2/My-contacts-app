@@ -15,6 +15,7 @@ class MyContact extends StatefulWidget {
 }
 
 class _MyContactState extends State<MyContact> {
+  String phone = '+201122882154';
   Map<String, String> socialMedia = {
     'facebook.png': 'https://www.facebook.com/islam.farghl',
     'github.png': 'https://github.com/farghl2',
@@ -50,7 +51,7 @@ class _MyContactState extends State<MyContact> {
                     ),
               onTap: () {
                 value.myUrl == null
-                    ? launchUrl(Uri.parse('tel:+201122882154'))
+                    ? launchUrl(Uri.parse('tel:$phone'))
                     : launchUrl(Uri.parse(value.myUrl!),
                         mode: LaunchMode.externalApplication);
               },
@@ -93,11 +94,16 @@ class _MyContactState extends State<MyContact> {
                   // mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text(
-                      '+201122882154',
-                      style: TextStyle(
-                        fontSize: 22,
-                        color: Colors.grey,
+                    InkWell(
+                      onTap: () {
+                        launchUrl(Uri.parse('tel:$phone'));
+                      },
+                      child:  Text(
+                        phone,
+                        style: TextStyle(
+                          fontSize: 22,
+                          color: Colors.grey,
+                        ),
                       ),
                     ),
                     const SizedBox(
@@ -110,7 +116,7 @@ class _MyContactState extends State<MyContact> {
                         color: Colors.grey,
                       ),
                       onPressed: (() {
-                        launchUrl(Uri.parse('tel:+201122882154'));
+                        launchUrl(Uri.parse('tel:$phone'));
                       }),
                     )
                   ]),
