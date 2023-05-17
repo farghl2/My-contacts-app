@@ -3,7 +3,7 @@ import 'package:my_contacts/my_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class SocialMediaIcon extends StatefulWidget {
+class SocialMediaIcon extends StatelessWidget {
   final String socialMediaImg;
   final String socialMediaUrl;
 
@@ -11,12 +11,7 @@ class SocialMediaIcon extends StatefulWidget {
       {Key? key, required this.socialMediaImg, required this.socialMediaUrl})
       : super(key: key);
 
-  @override
-  State<SocialMediaIcon> createState() => _SocialMediaIconState();
-}
-
-class _SocialMediaIconState extends State<SocialMediaIcon> {
-  // double? radius = 80;
+ 
   @override
   Widget build(BuildContext context) {
     return Consumer<MyProvider>(
@@ -24,15 +19,15 @@ class _SocialMediaIconState extends State<SocialMediaIcon> {
         padding: const EdgeInsets.all(15),
         child: InkWell(
           child: Material(
-            child: Image(image: AssetImage('assets/${widget.socialMediaImg}')),
+            child: Image(image: AssetImage('assets/$socialMediaImg')),
             borderRadius: BorderRadius.circular(100),
             clipBehavior: Clip.antiAlias,
           ),
           onTap: () {
-            value.myPlatform = widget.socialMediaImg;
-            value.myUrl = widget.socialMediaUrl;
+            value.setPlatform( socialMediaImg);
+            value.setUrl( socialMediaUrl);
             value.notifyListeners();
-            launchUrl(Uri.parse(widget.socialMediaUrl),
+            launchUrl(Uri.parse(socialMediaUrl),
                 mode: LaunchMode.externalApplication);
           },
         ),
