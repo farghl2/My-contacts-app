@@ -22,6 +22,14 @@ class MyContact extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        title: Text('Home'),
+        leading: IconButton(icon: Icon(Icons.home), onPressed: () {  },),
+        actions: [
+          IconButton(icon: Icon(Icons.home), onPressed: () {  },),
+        ],
+      ),
       backgroundColor: const Color.fromARGB(255, 3, 7, 30),
       body: SizedBox(
         width: double.infinity,
