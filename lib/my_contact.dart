@@ -1,23 +1,28 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:my_contacts/my_provider.dart';
 import 'package:my_contacts/wedgate/social_grid.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
 // ignore: must_be_immutable
-class MyContact extends StatelessWidget {
+class MyContact extends StatefulWidget {
   MyContact({super.key});
-   Map<String, String>socialMedia ={
-    'facebook.png':'https://www.facebook.com/islam.farghl',
-    'github.png':'https://github.com/farghl2',
-    'instagram.png':'https://www.instagram.com/islammohammed11/',
-    'twitter.png':'https://twitter.com/?lang=en',
-    'youtube.png':'https://www.youtube.com/',
-    'whatsapp.jpg':'https://wa.me/+201122882154'
-    } ;
-  
 
+  @override
+  State<MyContact> createState() => _MyContactState();
+}
+
+class _MyContactState extends State<MyContact> {
+  Map<String, String> socialMedia = {
+    'facebook.png': 'https://www.facebook.com/islam.farghl',
+    'github.png': 'https://github.com/farghl2',
+    'instagram.png': 'https://www.instagram.com/islammohammed11/',
+    'twitter.png': 'https://twitter.com/?lang=en',
+    'youtube.png': 'https://www.youtube.com/',
+    'whatsapp.jpg': 'https://wa.me/+201122882154'
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +30,32 @@ class MyContact extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         title: Text('Home'),
-        leading: IconButton(icon: Icon(Icons.home), onPressed: () {  },),
+        leading: IconButton(
+          icon: Icon(Icons.home),
+          onPressed: () {},
+        ),
         actions: [
-          IconButton(icon: Icon(Icons.home), onPressed: () {  },),
+          Consumer<MyProvider>(
+            builder: (context, value, child) => InkWell(
+              child: value.myPlatform == null
+                  ? Icon(Icons.phone)
+                  : Padding(
+                      padding: EdgeInsets.all(8),
+                      child: Material(
+                        child: Image(
+                            image: AssetImage('assets/${value.myPlatform}')),
+                        borderRadius: BorderRadius.circular(100),
+                        clipBehavior: Clip.antiAlias,
+                      ),
+                    ),
+              onTap: () {
+                value.myUrl == null
+                    ? launchUrl(Uri.parse('tel:+201122882154'))
+                    : launchUrl(Uri.parse(value.myUrl!),
+                        mode: LaunchMode.externalApplication);
+              },
+            ),
+          )
         ],
       ),
       backgroundColor: const Color.fromARGB(255, 3, 7, 30),
@@ -61,7 +89,7 @@ class MyContact extends StatelessWidget {
                 height: 20,
               ),
               Row(
-          
+
                   // mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -76,31 +104,26 @@ class MyContact extends StatelessWidget {
                       width: 5,
                     ),
                     IconButton(
-              icon: const Icon(
-          Icons.phone,
-          size: 30,
-          color: Colors.grey,
-              ),
-              onPressed: (() {
-                launchUrl(Uri.parse('tel:+201122882154'));
-              }),
-          )
+                      icon: const Icon(
+                        Icons.phone,
+                        size: 30,
+                        color: Colors.grey,
+                      ),
+                      onPressed: (() {
+                        launchUrl(Uri.parse('tel:+201122882154'));
+                      }),
+                    )
                   ]),
-                  const SizedBox(
-                    height: 20,
-                  ),
-          
-                  SocialGrid(socialMedia: socialMedia)
-                //  const SocialMediaIcon(socialMedia: 'facebook.png'),
-                
+              const SizedBox(
+                height: 20,
+              ),
+
+              SocialGrid(socialMedia: socialMedia)
+              //  const SocialMediaIcon(socialMedia: 'facebook.png'),
             ],
           ),
         ),
       ),
-      
-      
     );
   }
 }
-
-
