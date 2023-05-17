@@ -7,15 +7,11 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // ignore: must_be_immutable
-class MyContact extends StatefulWidget {
+class MyContact extends StatelessWidget {
   MyContact({super.key});
 
-  @override
-  State<MyContact> createState() => _MyContactState();
-}
-
-class _MyContactState extends State<MyContact> {
   String phone = '+201122882154';
+
   Map<String, String> socialMedia = {
     'facebook.png': 'https://www.facebook.com/islam.farghl',
     'github.png': 'https://github.com/farghl2',
@@ -38,21 +34,21 @@ class _MyContactState extends State<MyContact> {
         actions: [
           Consumer<MyProvider>(
             builder: (context, value, child) => InkWell(
-              child: value.myPlatform == null
+              child: value.getPlatform() == null
                   ? Icon(Icons.phone)
                   : Padding(
                       padding: EdgeInsets.all(8),
                       child: Material(
                         child: Image(
-                            image: AssetImage('assets/${value.myPlatform}')),
+                            image: AssetImage('assets/${value.getPlatform()}')),
                         borderRadius: BorderRadius.circular(100),
                         clipBehavior: Clip.antiAlias,
                       ),
                     ),
               onTap: () {
-                value.myUrl == null
+                value.getUrl() == null
                     ? launchUrl(Uri.parse('tel:$phone'))
-                    : launchUrl(Uri.parse(value.myUrl!),
+                    : launchUrl(Uri.parse(value.getUrl()),
                         mode: LaunchMode.externalApplication);
               },
             ),
